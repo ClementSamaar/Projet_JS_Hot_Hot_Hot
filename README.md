@@ -1,13 +1,7 @@
-# Projet_JS_Hot_Hot_Hot - Sujet
-# DUT, M4103C, Programmation web, client riche.
+#Projet HotHotHot - Sujet
+## DUT, M4103C, Programmation web, client riche.
 
 
-
-  
-
-
-
-## Projet HotHotHot
 
 
 
