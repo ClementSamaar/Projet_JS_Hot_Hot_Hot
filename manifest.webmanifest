@@ -1,0 +1,40 @@
+//Ce qu'on doit mettre au minimum dans le manifest
+{
+
+    "name": "HotHotHot by KTK",
+
+    "short_name": "HotHotHot",
+
+    "description": "Your favourite domotic application to check your house's data",
+
+	"start_url": "clementsamaar.github.io/Projet_JS_Hot_Hot_Hot/index.html", 
+
+    "display": "fullscreen",
+
+    "icons": [
+
+      {
+
+        "src": "img/",
+
+        "sizes": "256x256",
+
+        "type": "image/png"
+
+      },
+
+      {
+
+        "src": "img/",
+
+        "sizes": "128x128",
+
+        "type": "image/png"
+
+      }
+
+    ],
+
+	"background_color": "white",
+
+}

@@ -1,16 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>HOME|HOTHOTHOT</title>
+  <meta name="author" content="KTK G2">
+  <meta name="description" content="Page d'accueil de HotHotHot - Application de supervision et contrôle de votre environnement !">
+  <title>HOME | HOTHOTHOT</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="img/">
+  <link rel="manifest" href="manifest.webmanifest">
   <script src="script.js"></script>
 </head>
 <body>
+  <!-- AFFICHAGE PRINCIPAL -->
+  <div id="mainDisplay" class="tabs">
 
+    <div id="mainDisplay_nav" role="tablist">
+        <button id="mainData_button" class="tabListButton" name="mainData_button" role="tab"
+                aria-selected="true" aria-controls="mainData_display">DONNEES ACTUELLES</button>
 
+        <button id="dataHistory_button" class="tabListButton" name="dataHistory_button" role="tab"
+                aria-selected="false" aria-controls="dataHistory_display">HISTORIQUE</button>
+    </div>
 
+    <div id="mainDisplay_insideContainer">
+        <div id="realTimeData_display" role="tabpanel"
+             aria-labelledby="mainData_button">
 
+            <div id="realTimeData_header">
+                <label for="realTimeData_select"></label>
+                <select id="realTimeData_select">
+                    <optgroup label="Température">
+                        <option label="Température extérieure">Température extérieure</option>
+                        <option label="Température salon">Température salon</option>
+                        <option label="Température chambre">Température chambre</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div id="realTimeData_section">
+                <p id="realTimeData">25°C</p>
+                <blockquote id="relatedSuggestion">Il fait bon quoi</blockquote>
+                <script defer src="getSensorsData.js"></script>
+            </div>
+        </div>
+
+        <div id="dataHistory_display" role="tabpanel"
+             aria-labelledby="dataHistory_button">
+
+        </div>
+    </div>
+  </div>
+  <!-- --AFFICHAGE PRINCIPAL-- -->
   
   <!-- CREATION DU FOOTER-->
   <footer id="footer" class="section footer">
@@ -24,7 +63,9 @@
           <a href="#">TEXTE 4</a>
           <a href="#">TEXTE 5</a>
         </div>
-        
+      </div>
+    </div>
+  </footer>
   <!-- FIN DU FOOTER -->
 </body>
 </html>
