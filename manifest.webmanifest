@@ -15,7 +15,7 @@
 
       {
 
-        "src": "img/",
+        "src": "img/favThermo.png",
 
         "sizes": "256x256",
 
@@ -25,9 +25,9 @@
 
       {
 
-        "src": "img/",
+        "src": "img/favThermo",
 
-        "sizes": "128x128",
+        "sizes": "64x64",
 
         "type": "image/png"
 
