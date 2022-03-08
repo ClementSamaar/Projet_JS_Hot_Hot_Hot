@@ -12,40 +12,47 @@
 
 /** BUTTONS **/
 .tabListButton{
+    transition: 500ms;
     width: 1014px;
     height: 95px;
     padding-left: 15px;
     border: none;
+    outline: 0;
     text-align: left;
     font-size: 30px;
     font-family: 'Cabin', sans-serif;
 }
 
+#dataHistory_button[aria-selected="false"]:hover,
+#realTimeData_button[aria-selected="false"]:hover{
+    transition: 500ms;
+    background-color: black;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
 /** WHEN DISPLAYING THE REAL-TIME DATA **/
-#mainData_button[aria-selected=true]{
-    transition: 1s;
+#realTimeData_button[aria-selected=true]{
     width: 650px;
     border-bottom: dashed #000000 5px;
     border-top-left-radius: 17px;
     background-color: #D06161;
     color: #FFFFFF;
+    pointer-events: none;
 }
 
 #dataHistory_button[aria-selected=false]{
-    transition: 1s;
     width: 370px;
     border-left: solid #000000 5px;
     border-bottom: solid #000000 5px;
     border-top-right-radius: 17px;
     background-color: #FFFFFF;
     color: #000000;
-    cursor: pointer;
 }
 /** ---WHEN DISPLAYING THE REAL-TIME DATA--- **/
 
 /** WHEN DISPLAYING THE DATA HISTORY **/
-#mainData_button[aria-selected=false]{
-    transition: 1s;
+#realTimeData_button[aria-selected=false]{
     width: 400px;
     border-right: solid #000000 5px;
     border-bottom: solid #000000 5px;
@@ -56,12 +63,12 @@
 }
 
 #dataHistory_button[aria-selected=true]{
-    transition: 1s;
     width: 620px;
     border-bottom: dashed #000000 5px;
     border-top-right-radius: 17px;
     background-color: #D06161;
     color: #FFFFFF;
+    pointer-events: none;
 }
 /** ---WHEN DISPLAYING THE DATA HISTORY--- **/
 /** ---BUTTONS--- **/
@@ -70,6 +77,10 @@
 #mainDisplay_insideContainer{
     width: 1024px;
     height: 420px;
+}
+
+.is-hidden {
+    display: none;
 }
 
 /** REAL-TIME DATA **/
@@ -109,7 +120,6 @@
 
 /** REAL-TIME DATA SECTION **/
 #realTimeData_section{
-    width: inherit;
     height: 285px;
 }
 

@@ -14,40 +14,41 @@
   <!-- AFFICHAGE PRINCIPAL -->
   <div id="mainDisplay" class="tabs">
 
-    <div id="mainDisplay_nav" role="tablist">
-        <button id="mainData_button" class="tabListButton" name="mainData_button" role="tab"
-                aria-selected="true" aria-controls="mainData_display">DONNEES ACTUELLES</button>
+        <div id="mainDisplay_nav" role="tablist">
+            <button id="realTimeData_button" class="tabListButton" name="mainData_button" role="tab"
+                    aria-selected="true" aria-controls="realTimeData_display">DONNEES ACTUELLES</button>
 
-        <button id="dataHistory_button" class="tabListButton" name="dataHistory_button" role="tab"
-                aria-selected="false" aria-controls="dataHistory_display">HISTORIQUE</button>
-    </div>
-
-    <div id="mainDisplay_insideContainer">
-        <div id="realTimeData_display" role="tabpanel"
-             aria-labelledby="mainData_button">
-
-            <div id="realTimeData_header">
-                <label for="realTimeData_select"></label>
-                <select id="realTimeData_select">
-                    <optgroup label="Température">
-                        <option label="Température extérieure">Température extérieure</option>
-                        <option label="Température intérieure">Température intérieure</option>
-                    </optgroup>
-                </select>
-            </div>
-            <div id="realTimeData_section">
-                <p id="realTimeData"></p>
-                <blockquote id="relatedSuggestion"></blockquote>
-                <script defer src="getSensorsData.js"></script>
-            </div>
+            <button id="dataHistory_button" class="tabListButton" name="dataHistory_button" role="tab"
+                    aria-selected="false" aria-controls="dataHistory_display">HISTORIQUE</button
         </div>
 
-        <div id="dataHistory_display" role="tabpanel"
-             aria-labelledby="dataHistory_button">
+        <div id="mainDisplay_insideContainer">
 
+            <div id="realTimeData_display" role="tabpanel"
+                 aria-labelledby="realTimeData_button" class="">
+
+                <div id="realTimeData_header">
+                    <label for="realTimeData_select"></label>
+                    <select id="realTimeData_select">
+                        <optgroup label="Température">
+                            <option label="Température extérieure">Température extérieure</option>
+                            <option label="Température intérieure">Température intérieure</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div id="realTimeData_section">
+                    <p id="realTimeData"></p>
+                    <blockquote id="relatedSuggestion"></blockquote>
+                </div>
+            </div>
+
+            <div id="dataHistory_display" role="tabpanel"
+                 aria-labelledby="dataHistory_button" class="is-hidden">
+
+            </div>
         </div>
     </div>
-  </div>
+    <script defer src="script.js"></script>
   <!-- --AFFICHAGE PRINCIPAL-- -->
   
   <!-- CREATION DU FOOTER-->

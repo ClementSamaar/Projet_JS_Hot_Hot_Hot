@@ -1,3 +1,28 @@
+//SYSTEME DE NAVIGATION ONGLETS
+let O_rtdButton = document.querySelector("#realTimeData_button");
+let O_dhButton = document.querySelector("#dataHistory_button");
+let O_rtdDisplay = document.querySelector("#realTimeData_display");
+let O_dhDisplay = document.querySelector("#dataHistory_display");
+
+O_rtdButton.addEventListener("click", ()=>{
+    if (O_rtdButton.getAttribute("aria-selected") === "false") {
+        O_dhDisplay.setAttribute("class", "is-hidden");
+        O_rtdDisplay.setAttribute("class", "");
+        O_dhButton.setAttribute("aria-selected", "false");
+        O_rtdButton.setAttribute("aria-selected", "true")
+    }
+});
+
+O_dhButton.addEventListener("click", ()=>{
+    if (O_dhButton.getAttribute("aria-selected") === "false") {
+        O_rtdDisplay.setAttribute("class", "is-hidden");
+        O_dhDisplay.setAttribute("class", "");
+        O_rtdButton.setAttribute("aria-selected", "false");
+        O_dhButton.setAttribute("aria-selected", "true");
+    }
+});
+
+//AFFICHAGE DES DONNEES EN TEMPS REEL
 let O_sensorSelector = document.querySelector("#realTimeData_select");
 let O_dataDisplay = document.querySelector("#realTimeData");
 let O_suggestionDisplay = document.querySelector("#relatedSuggestion");
