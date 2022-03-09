@@ -2,12 +2,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
 
 /** MAIN DISPLAY **/
-#mainDisplay{
+.redBackground{
+    background-color: #D06161;
+}
+
+.blueBackground{
+    background-color: #638DF9;
+}
+
+#mainDisplay_Container{
     width: 1024px;
     height: 525px;
     border: solid #000000 5px;
     border-radius: 20px;
-    background-color: #D06161;
 }
 
 /** BUTTONS **/
@@ -36,7 +43,6 @@
     width: 650px;
     border-bottom: dashed #000000 5px;
     border-top-left-radius: 17px;
-    background-color: #D06161;
     color: #FFFFFF;
     pointer-events: none;
 }
@@ -66,7 +72,6 @@
     width: 620px;
     border-bottom: dashed #000000 5px;
     border-top-right-radius: 17px;
-    background-color: #D06161;
     color: #FFFFFF;
     pointer-events: none;
 }
