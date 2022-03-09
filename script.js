@@ -1,10 +1,8 @@
 //SYSTEME DE NAVIGATION ONGLETS
-const O_rtdButton = document.querySelector("#realTimeData_button");
+const O_rtdButton = document.getElementById("realTimeData_button");
 const O_dhButton = document.querySelector("#dataHistory_button");
 const O_rtdDisplay = document.querySelector("#realTimeData_display");
 const O_dhDisplay = document.querySelector("#dataHistory_display");
-
-
 
 O_rtdButton.addEventListener("click", ()=>{
     if (O_rtdButton.getAttribute("aria-selected") === "false") {
