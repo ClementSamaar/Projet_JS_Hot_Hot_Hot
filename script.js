@@ -46,28 +46,22 @@ function displayValues() {
     if (String(O_sensorSelector.value) === "Température extérieure") {
         if (parseFloat(S_tempExt) < 0) {
             O_suggestionDisplay.innerHTML = "Banquise en vue !";
-            alert("Banquise en vue !")
         } else if (parseFloat(S_tempExt) > 35) {
             O_suggestionDisplay.innerHTML = "Hot Hot Hot !";
-            alert("Hot Hot Hot !")
         } else if (parseFloat(S_tempExt) >= 0 && parseFloat(S_tempExt) <= 35) {
             O_suggestionDisplay.innerHTML = null;
         }
     } else {
         if (parseFloat(S_tempInt) < 0) {
             O_suggestionDisplay.innerHTML = "Canalisations gelées, appelez SOS plombier et mettez un bonnet !";
-            alert("Canalisations gelées, appelez SOS plombier et mettez un bonnet !")
         } else if (parseFloat(S_tempInt) >= 0 && parseFloat(S_tempInt) < 12) {
             O_suggestionDisplay.innerHTML = "Montez le chauffage ou mettez un gros pull !";
-            alert("Montez le chauffage ou mettez un gros pull !")
         } else if (parseFloat(S_tempInt) >= 12 && parseFloat(S_tempInt) < 22) {
             O_suggestionDisplay.innerHTML = null;
         } else if (parseFloat(S_tempInt) >= 22 && parseFloat(S_tempInt) < 50) {
             O_suggestionDisplay.innerHTML = "Baissez le chauffage !";
-            alert("Baissez le chauffage !")
         } else if (parseFloat(S_tempInt) >= 50) {
             O_suggestionDisplay.innerHTML = "Appelez les pompiers ou arrêtez votre barbecue !";
-            alert("Appelez les pompiers ou arrêtez votre barbecue !")
         }
     }
 }
