@@ -4,7 +4,7 @@ let O_dhButton = document.querySelector("#dataHistory_button");
 let O_rtdDisplay = document.querySelector("#realTimeData_display");
 let O_dhDisplay = document.querySelector("#dataHistory_display");
 
-O_rtdButton.addEventListener("click", (event)=>{
+O_rtdButton.onclick = function () {
     if (O_rtdButton.getAttribute("aria-selected") === "false") {
         O_dhDisplay.setAttribute("class", "is-hidden");
         O_rtdDisplay.setAttribute("class", "");
@@ -12,7 +12,7 @@ O_rtdButton.addEventListener("click", (event)=>{
         O_rtdButton.setAttribute("aria-selected", "true");
         changeDisplayBackground();
     }
-});
+}
 
 O_dhButton.addEventListener("click", (event)=>{
     if (O_dhButton.getAttribute("aria-selected") === "false") {
