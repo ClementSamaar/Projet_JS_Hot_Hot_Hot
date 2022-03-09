@@ -15,16 +15,6 @@
 
       {
 
-        "src": "img/favThermo.png",
-
-        "sizes": "256x256",
-
-        "type": "image/png"
-
-      },
-
-      {
-
         "src": "img/favThermo",
 
         "sizes": "64x64",

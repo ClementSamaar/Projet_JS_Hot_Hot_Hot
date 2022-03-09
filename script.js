@@ -1,10 +1,12 @@
 //SYSTEME DE NAVIGATION ONGLETS
-let O_rtdButton = document.querySelector("#realTimeData_button");
-let O_dhButton = document.querySelector("#dataHistory_button");
-let O_rtdDisplay = document.querySelector("#realTimeData_display");
-let O_dhDisplay = document.querySelector("#dataHistory_display");
+const O_rtdButton = document.querySelector("#realTimeData_button");
+const O_dhButton = document.querySelector("#dataHistory_button");
+const O_rtdDisplay = document.querySelector("#realTimeData_display");
+const O_dhDisplay = document.querySelector("#dataHistory_display");
 
-O_rtdButton.onclick = function () {
+
+
+O_rtdButton.addEventListener("click", ()=>{
     if (O_rtdButton.getAttribute("aria-selected") === "false") {
         O_dhDisplay.setAttribute("class", "is-hidden");
         O_rtdDisplay.setAttribute("class", "");
@@ -12,9 +14,9 @@ O_rtdButton.onclick = function () {
         O_rtdButton.setAttribute("aria-selected", "true");
         changeDisplayBackground();
     }
-}
+});
 
-O_dhButton.addEventListener("click", (event)=>{
+O_dhButton.addEventListener("click", ()=>{
     if (O_dhButton.getAttribute("aria-selected") === "false") {
         O_rtdDisplay.setAttribute("class", "is-hidden");
         O_dhDisplay.setAttribute("class", "");
@@ -25,17 +27,17 @@ O_dhButton.addEventListener("click", (event)=>{
 });
 
 //AFFICHAGE DES DONNEES EN TEMPS REEL
-let O_mainDisplay_container = document.querySelector("#mainDisplay_Container");
-let O_sensorSelector = document.querySelector("#realTimeData_select");
-let O_dataDisplay = document.querySelector("#realTimeData");
-let O_suggestionDisplay = document.querySelector("#relatedSuggestion");
+const O_mainDisplay_container = document.querySelector("#mainDisplay_Container");
+const O_sensorSelector = document.querySelector("#realTimeData_select");
+const O_dataDisplay = document.querySelector("#realTimeData");
+const O_suggestionDisplay = document.querySelector("#relatedSuggestion");
 let F_dataDisplayed;
 let S_socketMessage;
 let S_tempExtIndex;
 let S_tempIntIndex;
 let S_tempExt;
 let S_tempInt;
-let O_socket = new WebSocket('wss://ws.hothothot.dog:9502');//Créer une socket client
+const O_socket = new WebSocket('wss://ws.hothothot.dog:9502');//Créer une socket client
 
 function displayValues() {
     if (O_sensorSelector.selectedIndex === 0)
