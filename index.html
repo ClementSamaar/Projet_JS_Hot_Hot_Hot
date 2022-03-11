@@ -42,8 +42,12 @@
             </div>
 
             <div id="dataHistory_display" role="tabpanel"
-                 aria-labelledby="dataHistory_button" class="is-hidden">
-
+                aria-labelledby="dataHistory_button" class="is-hidden">
+                <svg id="graph" width="=600" height="=300">
+                    <script src="graph.js">
+                        graph.Draw(graph);
+                    </script>
+                </svg>
             </div>
         </div>
     </div>
