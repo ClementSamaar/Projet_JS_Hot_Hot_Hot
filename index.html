@@ -45,15 +45,18 @@
 
             <div id="dataHistory_display" role="tabpanel"
                 aria-labelledby="dataHistory_button" class="is-hidden">
-                <svg id="graphTemperatures" width="600" height="300">
-                </svg>
+                <div class="graphTemp">
+                    <svg id="graphTemperatures">
+                    </svg>
+                    <script src="graph.js"></script>
+                    <script>
+                        graph.Draw('graphTemperatures');
+                    </script>
+                </div>
             </div>
         </div>
     </div>
-  <script src="graph.js"></script>
-  <script>
-      graph.Draw('graphTemperatures');
-  </script>
+
 
     <script defer src="script.js"></script>
   <!-- --AFFICHAGE PRINCIPAL-- -->
