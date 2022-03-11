@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
 
-/** MAIN DISPLAY **/
 .redBackground{
     background-color: #D06161;
 }
@@ -10,23 +9,36 @@
     background-color: #638DF9;
 }
 
+html{
+    height: 99.7%;
+}
+
+body{
+    height: 99%;
+    border: solid #000000 5px;
+    margin: 0;
+}
+
+/** MAIN DISPLAY **/
 #mainDisplay_Container{
-    width: 1024px;
-    height: 525px;
+    width: 820px;
+    height: 380px;
     border: solid #000000 5px;
     border-radius: 20px;
+    margin-left: 23%;
+    margin-top: 11%;
 }
 
 /** BUTTONS **/
 .tabListButton{
     transition: 500ms;
-    width: 1014px;
-    height: 95px;
+    width: 80px;
+    height: 70px;
     padding-left: 15px;
     border: none;
     outline: 0;
     text-align: left;
-    font-size: 30px;
+    font-size: 24px;
     font-family: 'Cabin', sans-serif;
 }
 
@@ -40,7 +52,7 @@
 
 /** WHEN DISPLAYING THE REAL-TIME DATA **/
 #realTimeData_button[aria-selected=true]{
-    width: 650px;
+    width: 520px;
     border-bottom: dashed #000000 5px;
     border-top-left-radius: 17px;
     color: #FFFFFF;
@@ -48,7 +60,7 @@
 }
 
 #dataHistory_button[aria-selected=false]{
-    width: 370px;
+    width: 296px;
     border-left: solid #000000 5px;
     border-bottom: solid #000000 5px;
     border-top-right-radius: 17px;
@@ -59,7 +71,7 @@
 
 /** WHEN DISPLAYING THE DATA HISTORY **/
 #realTimeData_button[aria-selected=false]{
-    width: 400px;
+    width: 320px;
     border-right: solid #000000 5px;
     border-bottom: solid #000000 5px;
     border-top-left-radius: 17px;
@@ -69,7 +81,7 @@
 }
 
 #dataHistory_button[aria-selected=true]{
-    width: 620px;
+    width: 496px;
     border-bottom: dashed #000000 5px;
     border-top-right-radius: 17px;
     color: #FFFFFF;
@@ -80,8 +92,8 @@
 
 /** INSIDE CONTAINER **/
 #mainDisplay_insideContainer{
-    width: 1024px;
-    height: 420px;
+    width: 820px;
+    height: 310px;
 }
 
 .is-hidden {
@@ -90,10 +102,9 @@
 
 /** REAL-TIME DATA **/
 #realTimeData_display{
-    width: 855px;
-    height: 350px;
-    margin-top: 35px;
-    margin-left: 79px;
+    width: 600px;
+    height: 260px;
+    margin: 20px 110px;
     border: solid #000000 5px;
     border-radius: 20px;
     background-color: #FFFFFF;
@@ -101,8 +112,9 @@
 
 /** REAL-TIME DATA HEADER **/
 #realTimeData_header{
-    width: inherit;
-    height: 65px;
+    width: 601px;
+    height: 50px;
+    margin-left: -0.1%;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
     background-color: #000000;
@@ -111,13 +123,13 @@
 }
 
 #realTimeData_header > select{
-    height: 30px;
-    margin-top: 15px;
+    height: 24px;
+    margin-top: 12px;
     border: none;
     outline: none;
     background-color: #000000;
     color: #FFFFFF;
-    font-size: 22px;
+    font-size: 18px;
     font-family: 'Barlow', sans-serif;
     cursor: pointer;
 }
@@ -125,25 +137,67 @@
 
 /** REAL-TIME DATA SECTION **/
 #realTimeData_section{
-    height: 285px;
+    height: 228px;
 }
 
 /* DATA */
 #realTimeData{
-    margin-top: 50px;
+    margin-top: 40px;
     margin-bottom: 0;
     text-align: center;
-    font-size: 110px;
+    font-size: 80px;
     font-family: 'Barlow', sans-serif;
 }
 
 /* SUGGESTION */
 #relatedSuggestion{
     text-align: center;
-    font-size: 25px;
+    font-size: 20px;
     font-family: 'Barlow', sans-serif;
 }
 /** ---REAL-TIME DATA SECTION--- **/
 /** ---REAL-TIME DATA--- **/
+
+/* HISTORY SECTION */
+
+/** ---HISTORY SECTION---*/
 /** ---INSIDE CONTAINER--- **/
 /** ---MAIN DISPLAY--- **/
+
+/* FOOTER */
+footer{
+    position: fixed;
+    top: 84%;
+    width: 99.5%;
+    height: 15%;
+    text-align: center;
+    border-top: solid #000000 5px;
+    margin: -0.1%;
+}
+
+#footer_menu>a{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+#footer_menu{
+    margin-bottom: 0;
+    font-size: 16px;
+}
+
+.footer_p{
+    color: #FFFFFF;
+    font-family: 'Barlow', sans-serif;
+}
+
+#footer_title{
+    font-size: 12px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#footer_subTitle{
+    font-size: 12px;
+    margin-top: 0;
+    padding-bottom: 1.5%;
+}
