@@ -35,6 +35,7 @@
                         </optgroup>
                     </select>
                 </div>
+
                 <div id="realTimeData_section">
                     <p id="realTimeData"></p>
                     <blockquote id="relatedSuggestion"></blockquote>
@@ -43,14 +44,15 @@
 
             <div id="dataHistory_display" role="tabpanel"
                 aria-labelledby="dataHistory_button" class="is-hidden">
-                <svg id="graph" width="=600" height="=300">
-                    <script src="graph.js">
-                        graph.Draw(graph);
+                <svg id="graphTemperatures" width="600" height="300">
+                    <script src="graph.js" type="text/javascript">
+                        graph.Draw('graphTemperatures');
                     </script>
                 </svg>
             </div>
         </div>
     </div>
+
     <script defer src="script.js"></script>
   <!-- --AFFICHAGE PRINCIPAL-- -->
   
