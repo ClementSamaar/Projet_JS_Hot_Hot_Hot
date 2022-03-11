@@ -4,6 +4,8 @@ const O_dhButton = document.querySelector("#dataHistory_button");
 const O_rtdDisplay = document.querySelector("#realTimeData_display");
 const O_dhDisplay = document.querySelector("#dataHistory_display");
 
+
+
 O_rtdButton.addEventListener("click", ()=>{
     if (O_rtdButton.getAttribute("aria-selected") === "false") {
         O_dhDisplay.setAttribute("class", "is-hidden");
@@ -35,6 +37,24 @@ let S_tempExtIndex;
 let S_tempIntIndex;
 let S_tempExt;
 let S_tempInt;
+
+A_fetchHeader = new Headers({
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+});
+
+let A_init = {
+    method: 'GET',
+    headers: A_fetchHeader,
+    mode: 'cors',
+    cache: 'default'
+}
+
+fetch('https://hothothot.dog/api/capteurs', A_init).then(function(response){
+    console.log(response);
+    return response;
+})
+
 const O_socket = new WebSocket('wss://ws.hothothot.dog:9502');//Créer une socket client
 
 function displayValues() {
@@ -103,7 +123,7 @@ function changeDisplayBackground(){
     }
 }
 
-O_sensorSelector.addEventListener('change', (event) => {
+O_sensorSelector.addEventListener('change', () => {
     displayValues();
     changeDisplayBackground();
 });
