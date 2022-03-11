@@ -8,7 +8,9 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/x-icon" href="img/favThermo.png">
   <link rel="manifest" href="manifest.webmanifest">
-    <script type="text/javascript" src="jsGraphDisplay.1.0.js"></script>
+  <script src="jsGraphDisplay.1.0.js"></script>
+
+
 </head>
 <body>
   <!-- AFFICHAGE PRINCIPAL -->
@@ -46,9 +48,9 @@
             <div id="dataHistory_display" role="tabpanel"
                 aria-labelledby="dataHistory_button" class="is-hidden">
                 <div class="graphTemp">
-                    <svg id="graphTemperatures">
+                    <svg id="graphTemperatures" width="600" height="300">
                     </svg>
-                    <script src="graph.js"></script>
+                    <script src="graph.js"type="text/javascript"></script>
                     <script>
                         graph.Draw('graphTemperatures');
                     </script>
