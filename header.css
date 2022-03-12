@@ -1,0 +1,30 @@
+html,body{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* STYLE DU HEADER */
+.menu{
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 2fr;
+    text-align: center;
+}
+
+.menu button{
+    background-color: #D06161;
+    color: white;
+    font-size: 15pt;
+    border: 1px solid black;
+    height: 100px;
+    cursor: pointer;
+}
+
+#title_button{
+    background-color: white;
+    color: black;
+    border-bottom: 2px dashed black;
+    font-size: 30pt;
+    cursor: auto;
+}
+/* FIN DU STYLE DU HEADER */
