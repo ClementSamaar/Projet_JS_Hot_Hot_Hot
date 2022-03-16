@@ -84,7 +84,7 @@ function sockMsgToNecessaryString() {
     console.log("Température intérieure : ", S_tempInt);
 }
 
-function fetchData() {
+/*function fetchData() {
     let A_storedData = [];
     let keyDate;
     let keyTempExt;
@@ -112,7 +112,7 @@ let A_test;
 A_test = fetchData();
 for (let i = 0; i <5; i++) {
     console.log(A_test[i]);
-}
+}*/
 
 /**
  * @function displayValues()
@@ -224,3 +224,9 @@ O_socket.onerror = function (event) {
 
 //localStorage('TempInt',15)
 // Permet de stocker localement la donnée '15' de clé 'TempInt' de manière persistante
+
+let O_test = new LocalStorageData(0);
+O_test.fetchData();
+console.log(O_test.getDateValue);
+console.log(O_test.getTempExt);
+console.log(O_test.getTempInt);
