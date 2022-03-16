@@ -1,8 +1,8 @@
 class LocalStorageData{
     constructor(id = null, dateValue = null, tempInt = null, tempExt = null) {
-        this._keyDate = "'Date" + id + "'";
-        this._keyTempInt = "'TempInt" + id + "'";
-        this._keyTempExt = "'TempExt" + id + "'";
+        this._keyDate = "Date" + id;
+        this._keyTempInt = "TempInt" + id;
+        this._keyTempExt = "TempExt" + id;
         this._dateValue = dateValue;
         this._tempInt = tempInt;
         this._tempExt = tempExt;

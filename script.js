@@ -42,7 +42,9 @@ let F_dataDisplayed;
 let S_sockMsg;
 let S_tempExt;
 let S_tempInt;
-
+let A_storedData
+let O_todayAtMidnight = new Date();
+O_todayAtMidnight.setHours(0, 0, 0);
 //ACQUISITION DES DONNEES PAR FETCH
 /*
 let O_dataDisplayFetch
@@ -84,35 +86,22 @@ function sockMsgToNecessaryString() {
     console.log("Température intérieure : ", S_tempInt);
 }
 
-/*function fetchData() {
-    let A_storedData = [];
-    let keyDate;
-    let keyTempExt;
-    let keyTempInt;
+function fetchOldData(){
     let i = 0;
-    while(true) {
-        keyDate = "'Date" + i + "'";
-        console.log(keyDate);
-        keyTempExt = "'TempExt" + i + "'";
-        keyTempInt = "'TempInt" + i + "'";
-        if (localStorage.getItem(keyDate) === null)
-            return A_storedData;
-        else {
-                A_storedData = A_storedData + {
-                    keyDate: localStorage.getItem(keyDate),
-                    keyTempExt: localStorage.getItem(keyTempExt),
-                    keyDateInt: localStorage.getItem(keyTempInt)
-                };
+    while (true){
+        let O_fetchedData = new LocalStorageData(i);
+        if (localStorage.getItem(O_fetchedData.getKeyDate) != null) {
+            O_fetchedData.fetchData();
+
+            if (O_fetchedData.getDateValue >= O_todayAtMidnight)
+                A_storedData.push(O_fetchedData);
+            else
+                O_fetchedData.clearStoredData();
         }
-        i++;
+        else break;
+        ++i;
     }
 }
-
-let A_test;
-A_test = fetchData();
-for (let i = 0; i <5; i++) {
-    console.log(A_test[i]);
-}*/
 
 /**
  * @function displayValues()
