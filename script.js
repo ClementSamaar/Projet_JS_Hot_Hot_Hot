@@ -9,8 +9,8 @@ const O_dhDisplay = document.querySelector("#dataHistory_display");
 /**
  * @function changeTab
  * @description Permet de changer d'onglet en vérifiant la cohérence avec l'attribut aria-selected de button1 (déclenché par un listener)
- * @param button1 (Lors de l'appel de cette fonction, ce paramètre correspond au bouton sur lequel est placé le listener)
- * @param display1 (Lors de l'appel de cette fonction, ce paramètre correspond au contenu géré par le bouton sur lequel est placé le listener)
+ * @param button1 Lors de l'appel de cette fonction, ce paramètre correspond au bouton sur lequel est placé le listener
+ * @param display1 Lors de l'appel de cette fonction, ce paramètre correspond au contenu géré par le bouton sur lequel est placé le listener
  * @param button2
  * @param display2
  */
@@ -42,9 +42,15 @@ let F_dataDisplayed;
 let S_sockMsg;
 let S_tempExt;
 let S_tempInt;
-let A_storedData
+
+if (localStorage.getItem('NbVal') === null)
+    localStorage.setItem('NbVal', '0');
+
 let O_todayAtMidnight = new Date();
 O_todayAtMidnight.setHours(0, 0, 0);
+let A_dataHistory = [];
+A_dataHistory = fetchOldData();
+
 //ACQUISITION DES DONNEES PAR FETCH
 /*
 let O_dataDisplayFetch
@@ -86,21 +92,48 @@ function sockMsgToNecessaryString() {
     console.log("Température intérieure : ", S_tempInt);
 }
 
+/**
+ * @function fetchOldData()
+ * @description Permet de récupérer dans A_storedData les valeurs persistantes du localStorage
+ * @return A_storedData[]
+ */
 function fetchOldData(){
+    let A_storedData = []
+    let I_nbVal = parseInt(localStorage.getItem('NbVal'));
     let i = 0;
-    while (true){
+
+    while (A_storedData.length < I_nbVal){
         let O_fetchedData = new LocalStorageData(i);
         if (localStorage.getItem(O_fetchedData.getKeyDate) != null) {
             O_fetchedData.fetchData();
 
-            if (O_fetchedData.getDateValue >= O_todayAtMidnight)
+            if (Date.parse(O_fetchedData.getDateValue) >= O_todayAtMidnight.getTime()) {
                 A_storedData.push(O_fetchedData);
-            else
+            }
+            else {
                 O_fetchedData.clearStoredData();
+                localStorage.setItem('NbVal', String(--I_nbVal));
+            }
         }
-        else break;
         ++i;
     }
+    return A_storedData;
+}
+
+/**
+ * @function storeData()
+ * @description Permet de stocker un nouvel ensemble de valeurs dans le localStorage et l'ajouter à A_storedData
+ * @param TempInt Valeur TempInt à stocker
+ * @param TempExt Valeur TempExt à stocker
+ */
+function storeData(TempInt, TempExt){
+    let O_lastStoredData = A_dataHistory[A_dataHistory.length - 1];
+    console.log(typeof(O_lastStoredData));
+    let I_id = parseInt(O_lastStoredData.getKeyDate.charAt(4)) + 1;
+    let O_dataToStore = new LocalStorageData(I_id, new Date(), TempInt, TempExt);
+    O_dataToStore.storeData();
+    localStorage.setItem('NbVal', String(I_id));
+    A_dataHistory.push(O_dataToStore);
 }
 
 /**
@@ -202,6 +235,7 @@ O_socket.onmessage = function (event) {
     S_sockMsg = String(event.data);
     console.log(S_sockMsg);
     sockMsgToNecessaryString();
+    storeData(parseFloat(S_tempInt), parseFloat(S_tempExt));
     displayValues();
     F_dataDisplayed = parseFloat(O_dataDisplay.innerHTML.slice(0, O_dataDisplay.innerHTML.indexOf("°")));
     changeDisplayBackground();
@@ -210,12 +244,3 @@ O_socket.onmessage = function (event) {
 O_socket.onerror = function (event) {
     console.log(event);
 }//Si il y a un problème
-
-//localStorage('TempInt',15)
-// Permet de stocker localement la donnée '15' de clé 'TempInt' de manière persistante
-
-let O_test = new LocalStorageData(0);
-O_test.fetchData();
-console.log(O_test.getDateValue);
-console.log(O_test.getTempExt);
-console.log(O_test.getTempInt);
