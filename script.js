@@ -1,6 +1,7 @@
-//SYSTEME DE NAVIGATION ONGLETS
-//rtd : real-time data
-//dh  : data history
+/*SYSTEME DE NAVIGATION ONGLETS
+ * rtd : real-time data
+ * dh  : data history
+ */
 const O_rtdButton = document.querySelector("#realTimeData_button");
 const O_dhButton = document.querySelector("#dataHistory_button");
 const O_rtdDisplay = document.querySelector("#realTimeData_display");
@@ -9,10 +10,10 @@ const O_dhDisplay = document.querySelector("#dataHistory_display");
 /**
  * @function changeTab
  * @description Permet de changer d'onglet en vérifiant la cohérence avec l'attribut aria-selected de button1 (déclenché par un listener)
- * @param button1 Lors de l'appel de cette fonction, ce paramètre correspond au bouton sur lequel est placé le listener
- * @param display1 Lors de l'appel de cette fonction, ce paramètre correspond au contenu géré par le bouton sur lequel est placé le listener
- * @param button2
- * @param display2
+ * @param {HTMLButtonElement} button1 Lors de l'appel de cette fonction, ce paramètre correspond au bouton sur lequel est placé le listener
+ * @param {HTMLDivElement} display1 Lors de l'appel de cette fonction, ce paramètre correspond au contenu géré par le bouton sur lequel est placé le listener
+ * @param {HTMLButtonElement} button2
+ * @param {HTMLDivElement} display2
  */
 function changeTab(button1, display1, button2, display2) {
     if (button1.getAttribute("aria-selected") === "false") {
@@ -33,7 +34,7 @@ O_dhButton.addEventListener("click", ()=>{
 });
 
 //AFFICHAGE DES DONNEES EN TEMPS REEL
-const O_rtd_container = document.querySelector("#mainDisplay_Container");
+const O_mainContainer = document.querySelector("#mainDisplay_Container");
 const O_sensorSelector = document.querySelector("#realTimeData_select");
 const O_dataDisplay = document.querySelector("#realTimeData");
 const O_suggestionDisplay = document.querySelector("#relatedSuggestion");
@@ -42,62 +43,41 @@ let F_dataDisplayed;
 let S_sockMsg;
 let S_tempExt;
 let S_tempInt;
+let O_todayAtMidnight = new Date();
+O_todayAtMidnight.setHours(0, 0, 0);
+let A_dataHistory = [];
+A_dataHistory = fetchStoredData();
 
 if (localStorage.getItem('NbVal') === null)
     localStorage.setItem('NbVal', '0');
 
-let O_todayAtMidnight = new Date();
-O_todayAtMidnight.setHours(0, 0, 0);
-let A_dataHistory = [];
-A_dataHistory = fetchOldData();
-
-//ACQUISITION DES DONNEES PAR FETCH
-/*
-let O_dataDisplayFetch
-
-A_fetchHeader = new Headers({
-    "Accept": "application/json",
-    "Content-Type": "application/json"
-});
-
-let A_init = {
-    method: 'GET',
-    headers: A_fetchHeader,
-    mode: 'cors',
-    cache: 'default'
-}
-
-fetch('https://hothothot.dog/api/capteurs', A_init).then(function(response){
-    console.log(response);
-    O_dataDisplayFetch = response.body;
-})
-
-console.log(O_dataDisplayFetch);*/
-
-//ACQUISITION DES DONNEES PAR WEBSOCKET
 /**
- * @function sockMsgToNecessaryString()
+ * @function rawMsgToNecessaryString()
  * @description Extrait les valeurs de température intérieure et extérieure de S_sockMsg vers S_tempInt et S_tempExt puis les affiche dans la console
+ * @param {String} S_msg Données brutes
  */
-function sockMsgToNecessaryString() {
-    let S_tempExtIndex = S_sockMsg.indexOf(`Valeur`, S_sockMsg.indexOf(`exterieur`)) + 9;
+function rawMsgToNecessaryString(S_msg) {
+    S_msg = String(S_msg);
+    let I_tempExtIndex;
+    I_tempExtIndex = S_msg.indexOf(`Valeur`, S_msg.indexOf(`exterieur`)) + 9;
     //Cherche le mot 'valeur' depuis l'indice de la première lettre 'e' du mot exterieur
     //On ajoute 9 pour atteindre l'index du premier chiffre de la donnée de température depuis 'Valeur'
-    S_tempExt = S_sockMsg.slice(S_tempExtIndex, S_sockMsg.indexOf(`"`, S_tempExtIndex));
+    S_tempExt = S_msg.slice(I_tempExtIndex, S_msg.indexOf(`"`, I_tempExtIndex));
     //On extrait le contenu de la chaine jusqu'au caractère '"' soit la donnée de température
 
-    let S_tempIntIndex = S_sockMsg.indexOf(`Valeur`, S_sockMsg.indexOf(`interieur`)) + 9;
-    S_tempInt = S_sockMsg.slice(S_tempIntIndex, S_sockMsg.indexOf(`"`, S_tempIntIndex));
+    let I_tempIntIndex;
+    I_tempIntIndex= S_msg.indexOf(`Valeur`, S_msg.indexOf(`interieur`)) + 9;
+    S_tempInt = S_msg.slice(I_tempIntIndex, S_msg.indexOf(`"`, I_tempIntIndex));
     console.log("Température extérieure : ", S_tempExt);
     console.log("Température intérieure : ", S_tempInt);
 }
 
 /**
- * @function fetchOldData()
+ * @function fetchStoredData()
  * @description Permet de récupérer dans A_storedData les valeurs persistantes du localStorage
- * @return A_storedData[]
+ * @return {Array} A_storedData
  */
-function fetchOldData(){
+function fetchStoredData(){
     let A_storedData = []
     let I_nbVal = parseInt(localStorage.getItem('NbVal'));
     let i = 0;
@@ -121,19 +101,36 @@ function fetchOldData(){
 }
 
 /**
+ * @function deleteValuesFromYesterday()
+ * @description Supprime de l'historique, les valeurs datant de la journée précédente
+ */
+function deleteValuesFromYesterday(){
+    for (let i = 0; i < A_dataHistory.length; i++) {
+        if (Date.parse(A_dataHistory[i].getDateValue) <= O_todayAtMidnight.getTime()) {
+            let I_newId = String(parseInt(localStorage.getItem('NbVal')) - 1);
+            A_dataHistory[i].clearStoredData();
+            localStorage.setItem('NbVal', I_newId);
+            A_dataHistory.splice(i, 1);
+        }
+    }
+}
+
+/**
  * @function storeData()
  * @description Permet de stocker un nouvel ensemble de valeurs dans le localStorage et l'ajouter à A_storedData
- * @param TempInt Valeur TempInt à stocker
- * @param TempExt Valeur TempExt à stocker
+ * @param {number} TempInt Valeur TempInt à stocker
+ * @param {number} TempExt Valeur TempExt à stocker
  */
 function storeData(TempInt, TempExt){
-    let O_lastStoredData = A_dataHistory[A_dataHistory.length - 1];
-    console.log(typeof(O_lastStoredData));
-    let I_id = parseInt(O_lastStoredData.getKeyDate.charAt(4)) + 1;
+    let I_id
+
+    I_id = parseInt(localStorage.getItem('NbVal'));
+    localStorage.setItem('NbVal', String(I_id + 1));
+
     let O_dataToStore = new LocalStorageData(I_id, new Date(), TempInt, TempExt);
     O_dataToStore.storeData();
-    localStorage.setItem('NbVal', String(I_id));
     A_dataHistory.push(O_dataToStore);
+    deleteValuesFromYesterday();
 }
 
 /**
@@ -179,7 +176,7 @@ function displayValues() {
 function changeDisplayBackground(){
     //Lorsque la température est supérieure ou égale à 20, l'arrière fond est de couleur rouge
     if (F_dataDisplayed >= 20){
-        O_rtd_container.setAttribute("class", "redBackground");
+        O_mainContainer.setAttribute("class", "redBackground");
         O_footer.setAttribute("class", "redBackground");
         if (O_rtdButton.getAttribute("aria-selected") === "true"){
             O_rtdButton.setAttribute("class", "tabListButton redBackground");
@@ -192,7 +189,7 @@ function changeDisplayBackground(){
     }
     //Lorsque la température est inférieure à 20, l'arrière fond est de couleur bleue
     else if (F_dataDisplayed < 20){
-        O_rtd_container.setAttribute("class", "blueBackground");
+        O_mainContainer.setAttribute("class", "blueBackground");
         O_footer.setAttribute("class", "blueBackground");
         if (O_rtdButton.getAttribute("aria-selected") === "true"){
             O_rtdButton.setAttribute("class", "tabListButton blueBackground");
@@ -203,25 +200,26 @@ function changeDisplayBackground(){
             O_dhButton.setAttribute("class", "tabListButton blueBackground");
         }
     }
-    //Lorsque qu'il n'y a pas de données, l'arrière fond est de couleur rouge
-    else if (F_dataDisplayed == null){
-        O_rtd_container.setAttribute("class", "redBackground");
-        O_footer.setAttribute("class", "redBackground");
-        if (O_rtdButton.getAttribute("aria-selected") === "true"){
-            O_rtdButton.setAttribute("class", "tabListButton redBackground");
-            O_dhButton.setAttribute("class", "tabListButton")
-        }
-        else{
-            O_rtdButton.setAttribute("class", "tabListButton");
-            O_dhButton.setAttribute("class", "tabListButton redBackground");
-        }
-    }
+}
+
+/**
+ * @function processFetchData()
+ * @description Traite la réponse du fetch
+ */
+function processFetchData() {
+    rawMsgToNecessaryString(S_fetchResponse)
+    storeData(parseFloat(S_tempInt), parseFloat(S_tempExt));
+    displayValues();
+    F_dataDisplayed = parseFloat(O_dataDisplay.innerHTML.slice(0, O_dataDisplay.innerHTML.indexOf("°")));
+    changeDisplayBackground();
 }
 
 O_sensorSelector.addEventListener('change', () => {
     displayValues();
     changeDisplayBackground();
 });
+
+//ACQUISITION DES DONNEES PAR WEBSOCKET
 
 const O_socket = new WebSocket('wss://ws.hothothot.dog:9502');//Créer une socket client
 
@@ -233,8 +231,7 @@ O_socket.onopen = function(){
 
 O_socket.onmessage = function (event) {
     S_sockMsg = String(event.data);
-    console.log(S_sockMsg);
-    sockMsgToNecessaryString();
+    rawMsgToNecessaryString(S_sockMsg)
     storeData(parseFloat(S_tempInt), parseFloat(S_tempExt));
     displayValues();
     F_dataDisplayed = parseFloat(O_dataDisplay.innerHTML.slice(0, O_dataDisplay.innerHTML.indexOf("°")));
@@ -244,3 +241,39 @@ O_socket.onmessage = function (event) {
 O_socket.onerror = function (event) {
     console.log(event);
 }//Si il y a un problème
+
+//ACQUISITION DES DONNEES PAR FETCH
+
+let S_fetchResponse
+
+A_fetchHeader = new Headers({
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+});
+
+let A_init = {
+    method: 'GET',
+    headers: A_fetchHeader,
+    mode: 'cors',
+    cache: 'default'
+}
+
+/**
+ * @function fetchData()
+ * @description Effectue une requète fetch vers le serveur hothothot, retourne la réponse sous forme de string et traite cette réponse
+ */
+function fetchAndProcess() {
+    fetch('https://hothothot.dog/api/capteurs', A_init)
+        .then(response => response.json())
+        .then(response => S_fetchResponse = JSON.stringify(response))
+        .catch(error => console.log(error));
+    setTimeout(processFetchData, 1000);
+}
+
+fetchAndProcess();
+
+if (O_socket.readyState !== O_socket.OPEN || S_sockMsg === null)
+    I_fetchIntervalId = setInterval(fetchAndProcess, 10000);
+
+if (O_socket.readyState === O_socket.OPEN && S_sockMsg !== null)
+    clearInterval(I_fetchIntervalId);
