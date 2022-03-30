@@ -46,16 +46,17 @@ let S_tempInt;
 let O_todayAtMidnight = new Date();
 O_todayAtMidnight.setHours(0, 0, 0);
 let A_dataHistory = [];
-A_dataHistory = fetchStoredData();
 
 if (localStorage.getItem('NbVal') === null)
     localStorage.setItem('NbVal', '0');
-
+else
+    A_dataHistory = fetchStoredData();
 /**
  * @function rawMsgToNecessaryString()
  * @description Extrait les valeurs de température intérieure et extérieure de S_sockMsg vers S_tempInt et S_tempExt puis les affiche dans la console
  * @param {String} S_msg Données brutes
  */
+
 function rawMsgToNecessaryString(S_msg) {
     S_msg = String(S_msg);
     let I_tempExtIndex;
@@ -74,44 +75,37 @@ function rawMsgToNecessaryString(S_msg) {
 
 /**
  * @function fetchStoredData()
- * @description Permet de récupérer dans A_storedData les valeurs persistantes du localStorage
+ * @description Permet de récupérer dans A_storedData les valeurs persistantes et de rafraichir le localstorage avec les valeurs du jour seulement
  * @return {Array} A_storedData
  */
+
 function fetchStoredData(){
-    let A_storedData = []
-    let I_nbVal = parseInt(localStorage.getItem('NbVal'));
-    let i = 0;
+    if (parseInt(localStorage.getItem('NbVal')) !== null){
+        let A_storedData = [];
+        let I_nbVal = parseInt(localStorage.getItem('NbVal'));
+        let i = 0;
 
-    while (A_storedData.length < I_nbVal){
-        let O_fetchedData = new LocalStorageData(i);
-        if (localStorage.getItem(O_fetchedData.getKeyDate) != null) {
-            O_fetchedData.fetchData();
+        while (i < I_nbVal){
+            let O_fetchedData = new LocalStorageData(i);
+            if (localStorage.getItem(O_fetchedData.getKeyDate) != null) {
+                O_fetchedData.fetchData();
 
-            if (Date.parse(O_fetchedData.getDateValue) >= O_todayAtMidnight.getTime()) {
-                A_storedData.push(O_fetchedData);
+                if (Date.parse(O_fetchedData.getDateValue) >= O_todayAtMidnight.getTime() && !isNaN(O_fetchedData.getTempInt)) {
+                    A_storedData.push(O_fetchedData);
+                }
+                else {
+                    O_fetchedData.clearStoredData();
+                    localStorage.setItem('NbVal', String(I_nbVal--));
+                }
             }
-            else {
-                O_fetchedData.clearStoredData();
-                localStorage.setItem('NbVal', String(--I_nbVal));
-            }
+            ++i;
         }
-        ++i;
-    }
-    return A_storedData;
-}
-
-/**
- * @function deleteValuesFromYesterday()
- * @description Supprime de l'historique, les valeurs datant de la journée précédente
- */
-function deleteValuesFromYesterday(){
-    for (let i = 0; i < A_dataHistory.length; i++) {
-        if (Date.parse(A_dataHistory[i].getDateValue) <= O_todayAtMidnight.getTime()) {
-            let I_newId = String(parseInt(localStorage.getItem('NbVal')) - 1);
-            A_dataHistory[i].clearStoredData();
-            localStorage.setItem('NbVal', I_newId);
-            A_dataHistory.splice(i, 1);
+        localStorage.clear()
+        localStorage.setItem('NbVal', String(A_storedData.length))
+        for (let j = 0; j < A_storedData.length; j++) {
+            A_storedData[j].storeData();
         }
+        return A_storedData;
     }
 }
 
@@ -122,7 +116,7 @@ function deleteValuesFromYesterday(){
  * @param {number} TempExt Valeur TempExt à stocker
  */
 function storeData(TempInt, TempExt){
-    let I_id
+    let I_id;
 
     I_id = parseInt(localStorage.getItem('NbVal'));
     localStorage.setItem('NbVal', String(I_id + 1));
@@ -130,7 +124,6 @@ function storeData(TempInt, TempExt){
     let O_dataToStore = new LocalStorageData(I_id, new Date(), TempInt, TempExt);
     O_dataToStore.storeData();
     A_dataHistory.push(O_dataToStore);
-    deleteValuesFromYesterday();
 }
 
 /**
@@ -206,8 +199,9 @@ function changeDisplayBackground(){
  * @function processFetchData()
  * @description Traite la réponse du fetch
  */
+
 function processFetchData() {
-    rawMsgToNecessaryString(S_fetchResponse)
+    rawMsgToNecessaryString(S_fetchResponse);
     storeData(parseFloat(S_tempInt), parseFloat(S_tempExt));
     displayValues();
     F_dataDisplayed = parseFloat(O_dataDisplay.innerHTML.slice(0, O_dataDisplay.innerHTML.indexOf("°")));
@@ -227,26 +221,26 @@ O_socket.onopen = function(){
     console.log("Connexion établie avec le serveur hothothot.dog sur le port 9502\n");
     O_socket.send('J\'ai besoin de valeurs fictives');//message à envoyer au serveur
     console.log('Message envoyé au serveur');
-}
+};
 
 O_socket.onmessage = function (event) {
     S_sockMsg = String(event.data);
-    rawMsgToNecessaryString(S_sockMsg)
+    rawMsgToNecessaryString(S_sockMsg);
     storeData(parseFloat(S_tempInt), parseFloat(S_tempExt));
     displayValues();
     F_dataDisplayed = parseFloat(O_dataDisplay.innerHTML.slice(0, O_dataDisplay.innerHTML.indexOf("°")));
     changeDisplayBackground();
-}//Lors de la reception
+};//Lors de la reception
 
 O_socket.onerror = function (event) {
     console.log(event);
-}//Si il y a un problème
+};//Si il y a un problème
 
 //ACQUISITION DES DONNEES PAR FETCH
 
-let S_fetchResponse
+let S_fetchResponse;
 
-A_fetchHeader = new Headers({
+let A_fetchHeader = new Headers({
     "Accept": "application/json",
     "Content-Type": "application/json"
 });
@@ -256,7 +250,7 @@ let A_init = {
     headers: A_fetchHeader,
     mode: 'cors',
     cache: 'default'
-}
+};
 
 /**
  * @function fetchData()
