@@ -132,8 +132,7 @@ body{
     display: none;
 }
 
-/** REAL-TIME DATA **/
-#realTimeData_display{
+.data_display{
     width: 70%;
     height: 75%;
     margin-left: auto;
@@ -144,8 +143,7 @@ body{
     background-color: #FFFFFF;
 }
 
-/** REAL-TIME DATA HEADER **/
-#realTimeData_header{
+.dataDisplay_header{
     width: 100.5%;
     height: 20%;
     margin-top: -0.2%;
@@ -157,7 +155,7 @@ body{
     text-align: center;
 }
 
-#realTimeData_header > select{
+.dataDisplay_header > select{
     height: 48%;
     margin-top: 2%;
     border: none;
@@ -168,6 +166,9 @@ body{
     font-family: 'Barlow', sans-serif;
     cursor: pointer;
 }
+/** REAL-TIME DATA **/
+/** REAL-TIME DATA HEADER **/
+
 /** ---REAL-TIME DATA HEADER--- **/
 
 /** REAL-TIME DATA SECTION **/
@@ -194,7 +195,28 @@ body{
 /** ---REAL-TIME DATA--- **/
 
 /* HISTORY SECTION */
+#minAndMax{
+    width: 20%;
+    margin-left: 2%;
+    margin-top: 3%;
+}
 
+.minAndMax_info{
+    font-size: 20px;
+    font-family: 'Barlow', sans-serif;
+    margin: 10% 10%;
+}
+
+.minAndMax_value{
+    font-size: 25px;
+    font-family: 'Barlow', sans-serif;
+    margin: 5% 22.5%;
+}
+
+hr{
+    width: 80%;
+    margin-left: 10%;
+}
 /** ---HISTORY SECTION---*/
 /** ---INSIDE CONTAINER--- **/
 /*@media screen and (max-width:1250px) {

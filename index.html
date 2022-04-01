@@ -35,9 +35,9 @@
         <div id="mainDisplay_insideContainer">
 
             <div id="realTimeData_display" role="tabpanel"
-                 aria-labelledby="realTimeData_button" class="">
+                 aria-labelledby="realTimeData_button" class="data_display">
 
-                <div id="realTimeData_header">
+                <div class="dataDisplay_header">
                     <label for="realTimeData_select"></label>
                     <select id="realTimeData_select">
                         <optgroup label="Température">
@@ -54,7 +54,22 @@
 
             <div id="dataHistory_display" role="tabpanel"
                  aria-labelledby="dataHistory_button" class="is-hidden">
-
+                <div class="dataDisplay_header">
+                    <label for="dataHistory_select"></label>
+                    <select id="dataHistory_select">
+                        <optgroup label="Température">
+                            <option label="Température extérieure">Température extérieure</option>
+                            <option label="Température intérieure">Température intérieure</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div id="minAndMax">
+                    <p class="minAndMax_info">Maximale</p>
+                    <p id="maxValue" class="minAndMax_value"></p>
+                    <hr>
+                    <p class="minAndMax_info">Minimale</p>
+                    <p id="minValue" class="minAndMax_value"></p>
+                </div>
             </div>
         </div>
     </div>
