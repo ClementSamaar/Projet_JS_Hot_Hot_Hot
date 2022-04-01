@@ -26,6 +26,12 @@ class LocalStorageData{
         localStorage.removeItem(this._keyTempExt);
     }
 
+    refactorKeys(newId){
+        this._keyDate = "Date" + newId;
+        this._keyTempInt = "TempInt" + newId;
+        this._keyTempExt = "TempExt" + newId;
+    }
+
     get getDateValue() {
         return this._dateValue;
     }

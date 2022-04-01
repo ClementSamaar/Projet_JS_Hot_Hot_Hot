@@ -35,6 +35,9 @@ O_dhButton.addEventListener("click", ()=>{
 
 //AFFICHAGE DES DONNEES EN TEMPS REEL
 const O_mainContainer = document.querySelector("#mainDisplay_Container");
+const O_loginButton = document.getElementById("loginButton");
+const O_homeButton = document.getElementById("homeButton");
+const O_docButton = document.getElementById("docButton");
 const O_sensorSelector = document.querySelector("#realTimeData_select");
 const O_dataDisplay = document.querySelector("#realTimeData");
 const O_suggestionDisplay = document.querySelector("#relatedSuggestion");
@@ -44,13 +47,13 @@ let S_sockMsg;
 let S_tempExt;
 let S_tempInt;
 let O_todayAtMidnight = new Date();
-O_todayAtMidnight.setHours(0, 0, 0);
+O_todayAtMidnight.setHours(20, 16, 0);
 let A_dataHistory = [];
 
 if (localStorage.getItem('NbVal') === null)
     localStorage.setItem('NbVal', '0');
-else
-    A_dataHistory = fetchStoredData();
+
+A_dataHistory = fetchStoredData();
 /**
  * @function rawMsgToNecessaryString()
  * @description Extrait les valeurs de température intérieure et extérieure de S_sockMsg vers S_tempInt et S_tempExt puis les affiche dans la console
@@ -80,30 +83,46 @@ function rawMsgToNecessaryString(S_msg) {
  */
 
 function fetchStoredData(){
-    if (parseInt(localStorage.getItem('NbVal')) !== null){
-        let A_storedData = [];
-        let I_nbVal = parseInt(localStorage.getItem('NbVal'));
-        let i = 0;
-
-        while (i < I_nbVal){
+    let NbVal = parseInt(localStorage.getItem('NbVal'));
+    let A_storedData = [];
+    if (NbVal !== null){
+        for (let i = 0; i < NbVal; i++) {
             let O_fetchedData = new LocalStorageData(i);
-            if (localStorage.getItem(O_fetchedData.getKeyDate) != null) {
-                O_fetchedData.fetchData();
-
-                if (Date.parse(O_fetchedData.getDateValue) >= O_todayAtMidnight.getTime() && !isNaN(O_fetchedData.getTempInt)) {
+            O_fetchedData.fetchData();
+            if (O_fetchedData.getDateValue !== null) {
+                if (Date.parse(O_fetchedData.getDateValue) >= O_todayAtMidnight.getTime())
                     A_storedData.push(O_fetchedData);
-                }
-                else {
-                    O_fetchedData.clearStoredData();
-                    localStorage.setItem('NbVal', String(I_nbVal--));
-                }
             }
-            ++i;
         }
-        localStorage.clear()
-        localStorage.setItem('NbVal', String(A_storedData.length))
-        for (let j = 0; j < A_storedData.length; j++) {
-            A_storedData[j].storeData();
+        NbVal = A_storedData.length;
+        localStorage.clear();
+        localStorage.setItem('NbVal', String(NbVal));
+        for (let i = 0; i < NbVal; i++) {
+            A_storedData[i].refactorKeys(i);
+            A_storedData[i].storeData();
+        }
+        return A_storedData;
+    }
+    return null;
+}
+
+function fetchStoredDataV2(){
+    let NbVal = parseInt(localStorage.getItem('NbVal'));
+    let A_storedData = [];
+    if (NbVal !== null){
+        for (let i = 0; i < NbVal; i++) {
+            let O_fetchedData = new LocalStorageData(i);
+            O_fetchedData.fetchData();
+            if (O_fetchedData.getDateValue !== null) {
+                A_storedData.push(O_fetchedData);
+            }
+        }
+
+        NbVal = A_storedData.length;
+        localStorage.clear();
+        localStorage.setItem('NbVal', String(NbVal));
+        for (let i = 0; i < NbVal; i++) {
+            A_storedData[i].storeData();
         }
         return A_storedData;
     }
@@ -171,6 +190,9 @@ function changeDisplayBackground(){
     if (F_dataDisplayed >= 20){
         O_mainContainer.setAttribute("class", "redBackground");
         O_footer.setAttribute("class", "redBackground");
+        O_loginButton.setAttribute("class", "redBackground");
+        O_homeButton.setAttribute("class", "redBackground")
+        O_docButton.setAttribute("class", "redBackground")
         if (O_rtdButton.getAttribute("aria-selected") === "true"){
             O_rtdButton.setAttribute("class", "tabListButton redBackground");
             O_dhButton.setAttribute("class", "tabListButton")
@@ -184,6 +206,9 @@ function changeDisplayBackground(){
     else if (F_dataDisplayed < 20){
         O_mainContainer.setAttribute("class", "blueBackground");
         O_footer.setAttribute("class", "blueBackground");
+        O_loginButton.setAttribute("class", "blueBackground");
+        O_homeButton.setAttribute("class", "blueBackground")
+        O_docButton.setAttribute("class", "blueBackground")
         if (O_rtdButton.getAttribute("aria-selected") === "true"){
             O_rtdButton.setAttribute("class", "tabListButton blueBackground");
             O_dhButton.setAttribute("class", "tabListButton");
