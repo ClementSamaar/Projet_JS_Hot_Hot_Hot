@@ -23,9 +23,7 @@ self.addEventListener('install', (e) => {
       caches.open('my-custom-pwa').then((cache) => cache.addAll([
         "/Projet_JS_Hot_Hot_Hot/",
         "/Projet_JS_Hot_Hot_Hot/index.html",
-        "/Projet_JS_Hot_Hot_Hot/css/style.css",
-        "/Projet_JS_Hot_Hot_Hot/header/html",
-        "/Projet_JS_Hot_Hot_Hot/header.css",
+        "/Projet_JS_Hot_Hot_Hot/styles/style.css",
         "/Projet_JS_Hot_Hot_Hot/script.js",
         "/Projet_JS_Hot_Hot_Hot/LocalStorageData.js",  
       ])), // à adapter à l'URL du projet
