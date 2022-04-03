@@ -205,6 +205,9 @@ function displayHistoryValues() {
         O_minValue.innerHTML = S_minInt + '°C';
     }
 }
+
+
+
 /**
  * @function changeDisplayBackground()
  * @description Change la couleur d'arrière fond de certains éléments en fonction de la température

@@ -200,18 +200,27 @@ body{
     width: 20%;
     margin-left: 2%;
     margin-top: 3%;
+    float: left;
 }
 
 .minAndMax_info{
     font-size: 20px;
     font-family: 'Barlow', sans-serif;
     margin: 10% 10%;
+    float : left;
 }
 
 .minAndMax_value{
     font-size: 25px;
     font-family: 'Barlow', sans-serif;
     margin: 5% 22.5%;
+}
+
+#graph{
+    width: 60%;
+    margin-left: 2%;
+    margin-top: 3%;
+    float : left;
 }
 
 hr{

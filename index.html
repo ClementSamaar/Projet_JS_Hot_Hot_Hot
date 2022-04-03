@@ -60,6 +60,7 @@
                         <optgroup label="Température">
                             <option label="Température extérieure">Température extérieure</option>
                             <option label="Température intérieure">Température intérieure</option>
+
                         </optgroup>
                     </select>
                 </div>
@@ -69,6 +70,43 @@
                     <hr>
                     <p class="minAndMax_info">Minimale</p>
                     <p id="minValue" class="minAndMax_value"></p>
+                </div>
+                <div id="graph">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        google.charts.load('current', {'packages':['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        function drawChart() {
+                            var data = google.visualization.arrayToDataTable([
+                                ['2000',1000 ],
+                                ['2010',2000 ],
+                                ['2020',1500 ]
+                            ]);
+
+                            var options = {
+                                title: 'Temperaures',
+                                curveType: 'function',
+                                legend: { position: 'bottom' }
+                            };
+
+                            if (O_sensorDataHistorySelector.selectedIndex === 0) {
+                                for (let i = 0; i < A_dataHistory.length; i++) {
+                                    data.addRows([[A_dataHistory[i].getDateValue, parseFloat(A_dataHistory[i].getTempExt)]]);
+                                }
+                            }
+                            else {
+                                for (let i = 0; i < A_dataHistory.length; i++) {
+                                    data.addRows([[A_dataHistory[i].getDateValue, parseFloat(A_dataHistory[i].getTempInt)]]);
+                                }
+                            }
+
+                            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                            chart.draw(data, options);
+                        }
+                    </script>
+                    <div id="curve_chart"></div>
                 </div>
             </div>
         </div>
@@ -83,5 +121,7 @@
 
     <script defer src="LocalStorageData.js"></script>
     <script defer src="script.js"></script>
+    <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js%22%3E"></script>
+    <script defer src="Graph.js"></script>-->
 </body>
 </html>
