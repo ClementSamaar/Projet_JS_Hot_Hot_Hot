@@ -60,6 +60,7 @@
                         <optgroup label="Température">
                             <option label="Température extérieure">Température extérieure</option>
                             <option label="Température intérieure">Température intérieure</option>
+
                         </optgroup>
                     </select>
                 </div>
@@ -69,6 +70,36 @@
                     <hr>
                     <p class="minAndMax_info">Minimale</p>
                     <p id="minValue" class="minAndMax_value"></p>
+                </div>
+                <div id="graph">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        google.charts.load('current', {'packages':['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        function drawChart() {
+                            var data = google.visualization.arrayToDataTable([
+                                ['Year', 'Sales', 'Expenses'],
+                                ['2004',  1000,      400],
+                                ['2005',  1170,      460],
+                                ['2006',  660,       1120],
+                                ['2007',  1030,      540]
+                            ]);
+
+                            var options = {
+                                title: 'Company Performance',
+                                curveType: 'function',
+                                legend: { position: 'bottom' }
+                            };
+
+                            data.addRows([['2010', 1000, 7200]]);
+
+                            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                            chart.draw(data, options);
+                        }
+                    </script>
+                    <div id="curve_chart"></div>
                 </div>
             </div>
         </div>
@@ -83,5 +114,7 @@
 
     <script defer src="LocalStorageData.js"></script>
     <script defer src="script.js"></script>
+    <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js%22%3E"></script>
+    <script defer src="Graph.js"></script>-->
 </body>
 </html>
