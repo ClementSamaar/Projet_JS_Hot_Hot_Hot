@@ -97,7 +97,7 @@ function fetchStoredData(){
             let O_fetchedData = new LocalStorageData(i);
             O_fetchedData.fetchData();
             if (O_fetchedData.getDateValue !== null) {
-                if (Date.parse(O_fetchedData.getDateValue) >= O_todayAtMidnight.getTime())
+                if (Date.parse(O_fetchedData.getDateValue) >= O_todayAtMidnight.getTime() && !isNaN(parseFloat(O_fetchedData.getTempInt)))
                     A_storedData.push(O_fetchedData);
             }
         }
@@ -127,7 +127,7 @@ function storeData(TempInt, TempExt){
 
     let O_dataToStore = new LocalStorageData(I_id, new Date(), TempInt, TempExt);
     O_dataToStore.storeData();
-    A_dataHistory.push(O_dataToStore);
+    A_dataHistory = fetchStoredData();
 }
 
 /**
@@ -304,7 +304,8 @@ let A_init = {
     method: 'GET',
     headers: A_fetchHeader,
     mode: 'cors',
-    cache: 'default'
+    cache: 'default',
+    keepalive: true
 };
 
 /**
