@@ -15,27 +15,58 @@ html{
 
 body{
     height: 99%;
-    border: solid #000000 5px;
+    border-left: solid #000000 5px;
+    border-right: solid #000000 5px;
     margin: 0;
 }
 
+/* STYLE DU HEADER */
+.menu{
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 2fr;
+    text-align: center;
+}
+
+.menu > button{
+    color: white;
+    font-size: 15pt;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+    border-top: 4px solid black;
+    height: 100px;
+    cursor: pointer;
+}
+
+#title_button{
+    background-color: white;
+    color: black;
+    border-bottom: 4px dashed black;
+    font-size: 30pt;
+    cursor: auto;
+}
+/* FIN DU STYLE DU HEADER */
+
 /** MAIN DISPLAY **/
 #mainDisplay_Container{
-    width: 820px;
-    height: 380px;
+    width: 47%;
+    height: 52%;
     border: solid #000000 5px;
     border-radius: 20px;
-    margin-left: 23%;
-    margin-top: 11%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}
+
+#mainDisplay_nav{
+    width: 100%;
 }
 
 /** BUTTONS **/
 .tabListButton{
     transition: 500ms;
-    width: 80px;
-    height: 70px;
-    padding-left: 15px;
+    height: 2.5em;
     border: none;
+    margin-top: -0.1%;
     outline: 0;
     text-align: left;
     font-size: 24px;
@@ -52,18 +83,18 @@ body{
 
 /** WHEN DISPLAYING THE REAL-TIME DATA **/
 #realTimeData_button[aria-selected=true]{
-    width: 520px;
+    width: 62.8%;
     border-bottom: dashed #000000 5px;
-    border-top-left-radius: 17px;
+    border-top-left-radius: 14px;
     color: #FFFFFF;
     pointer-events: none;
 }
 
 #dataHistory_button[aria-selected=false]{
-    width: 296px;
+    width: 36.6%;
     border-left: solid #000000 5px;
     border-bottom: solid #000000 5px;
-    border-top-right-radius: 17px;
+    border-top-right-radius: 14px;
     background-color: #FFFFFF;
     color: #000000;
 }
@@ -71,19 +102,20 @@ body{
 
 /** WHEN DISPLAYING THE DATA HISTORY **/
 #realTimeData_button[aria-selected=false]{
-    width: 320px;
+    width: 39.02%;
+    margin-left: -0.1%;
     border-right: solid #000000 5px;
     border-bottom: solid #000000 5px;
-    border-top-left-radius: 17px;
+    border-top-left-radius: 14px;
     background-color: #FFFFFF;
     color: #000000;
     cursor: pointer;
 }
 
 #dataHistory_button[aria-selected=true]{
-    width: 496px;
+    width: 60.4%;
     border-bottom: dashed #000000 5px;
-    border-top-right-radius: 17px;
+    border-top-right-radius: 14px;
     color: #FFFFFF;
     pointer-events: none;
 }
@@ -92,28 +124,29 @@ body{
 
 /** INSIDE CONTAINER **/
 #mainDisplay_insideContainer{
-    width: 820px;
-    height: 310px;
+    width: 100%;
+    height: 78%;
 }
 
 .is-hidden {
     display: none;
 }
 
-/** REAL-TIME DATA **/
-#realTimeData_display{
-    width: 600px;
-    height: 260px;
-    margin: 20px 110px;
+.data_display{
+    width: 70%;
+    height: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
     border: solid #000000 5px;
     border-radius: 20px;
     background-color: #FFFFFF;
 }
 
-/** REAL-TIME DATA HEADER **/
-#realTimeData_header{
-    width: 601px;
-    height: 50px;
+.dataDisplay_header{
+    width: 100.5%;
+    height: 20%;
+    margin-top: -0.2%;
     margin-left: -0.1%;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
@@ -122,9 +155,9 @@ body{
     text-align: center;
 }
 
-#realTimeData_header > select{
-    height: 24px;
-    margin-top: 12px;
+.dataDisplay_header > select{
+    height: 48%;
+    margin-top: 2%;
     border: none;
     outline: none;
     background-color: #000000;
@@ -133,16 +166,19 @@ body{
     font-family: 'Barlow', sans-serif;
     cursor: pointer;
 }
+/** REAL-TIME DATA **/
+/** REAL-TIME DATA HEADER **/
+
 /** ---REAL-TIME DATA HEADER--- **/
 
 /** REAL-TIME DATA SECTION **/
 #realTimeData_section{
-    height: 228px;
+    height: 34.03%;
 }
 
 /* DATA */
 #realTimeData{
-    margin-top: 40px;
+    margin-top: 7%;
     margin-bottom: 0;
     text-align: center;
     font-size: 80px;
@@ -159,9 +195,92 @@ body{
 /** ---REAL-TIME DATA--- **/
 
 /* HISTORY SECTION */
+#minAndMax{
+    width: 20%;
+    margin-left: 2%;
+    margin-top: 3%;
+}
 
+.minAndMax_info{
+    font-size: 20px;
+    font-family: 'Barlow', sans-serif;
+    margin: 10% 10%;
+}
+
+.minAndMax_value{
+    font-size: 25px;
+    font-family: 'Barlow', sans-serif;
+    margin: 5% 22.5%;
+}
+
+hr{
+    width: 80%;
+    margin-left: 10%;
+}
 /** ---HISTORY SECTION---*/
 /** ---INSIDE CONTAINER--- **/
+/*@media screen and (max-width:1250px) {
+    #mainDisplay_Container{
+        margin-left: 24%;
+        margin-top: 11%;
+    }
+    #realTimeData_button[aria-selected=true]{
+        width: 62.75%;
+    }
+
+    #dataHistory_button[aria-selected=false]{
+        width: 36.6%;
+    }
+
+    #realTimeData_button[aria-selected=false]{
+        width: 41%;
+    }
+
+    #dataHistory_button[aria-selected=true]{
+        width: 58%;
+    }
+
+    #mainDisplay_insideContainer{
+        width: 100%;
+        height: 78%;
+    }
+
+    #realTimeData_display{
+        width: 70%;
+        height: 75%;
+        margin: 5% 14%;
+        border: solid #000000 5px;
+        border-radius: 20px;
+    }
+
+    #realTimeData_header{
+        width: 100.5%;
+        height: 20%;
+        margin-top: -0.2%;
+        margin-left: -0.1%;
+        border-top-left-radius: 13px;
+        border-top-right-radius: 13px;
+    }
+
+    #realTimeData_header > select{
+        height: 48%;
+        margin-top: 2%;
+        font-size: 18px;
+    }
+
+    #realTimeData_section{
+        height: 34.03%;
+    }
+
+    #realTimeData{
+        margin-top: 7%;
+        font-size: 80px;
+    }
+
+    #relatedSuggestion{
+        font-size: 20px;
+    }
+}*/
 /** ---MAIN DISPLAY--- **/
 
 /* FOOTER */
@@ -172,6 +291,7 @@ footer{
     height: 15%;
     text-align: center;
     border-top: solid #000000 5px;
+    border-bottom: solid #000000 5px;
     margin: -0.1%;
 }
 

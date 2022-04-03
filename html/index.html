@@ -5,7 +5,7 @@
     <meta name="author" content="KTK G2">
     <meta name="description" content="Page d'accueil de HotHotHot - Application de supervision et contrôle de votre environnement !">
     <link rel="icon" type="image/x-icon" href="img/favThermo.png">
-    <meta name="viewport" content="width=1200px, initial-scale=1">
+    <meta name="viewport" content="width=1200, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="manifest" href="manifest.json">
   <script>
@@ -18,6 +18,16 @@
     <title>Accueil - HotHotHot</title>
 </head>
 <body>
+
+    <!-- CREATION DU HEADER -->
+    <header class="menu">
+        <button id="loginButton" class="redBackground">CONNEXION</button>
+        <button id="homeButton" class="redBackground">ACCUEIL</button>
+        <button id="docButton" class="redBackground">L’EQUIPE KTKAT</button>
+        <button id="title_button">HOT HOT HOT</button>
+    </header>
+    <!-- FIN DE LA CREATION DU HEADER -->
+
     <!-- AFFICHAGE PRINCIPAL -->
     <div id="mainDisplay_Container" class="redBackground">
 
@@ -32,9 +42,9 @@
         <div id="mainDisplay_insideContainer">
 
             <div id="realTimeData_display" role="tabpanel"
-                 aria-labelledby="realTimeData_button" class="">
+                 aria-labelledby="realTimeData_button" class="data_display">
 
-                <div id="realTimeData_header">
+                <div class="dataDisplay_header">
                     <label for="realTimeData_select"></label>
                     <select id="realTimeData_select">
                         <optgroup label="Température">
@@ -51,7 +61,22 @@
 
             <div id="dataHistory_display" role="tabpanel"
                  aria-labelledby="dataHistory_button" class="is-hidden">
-
+                <div class="dataDisplay_header">
+                    <label for="dataHistory_select"></label>
+                    <select id="dataHistory_select">
+                        <optgroup label="Température">
+                            <option label="Température extérieure">Température extérieure</option>
+                            <option label="Température intérieure">Température intérieure</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div id="minAndMax">
+                    <p class="minAndMax_info">Maximale</p>
+                    <p id="maxValue" class="minAndMax_value"></p>
+                    <hr>
+                    <p class="minAndMax_info">Minimale</p>
+                    <p id="minValue" class="minAndMax_value"></p>
+                </div>
             </div>
         </div>
     </div>
@@ -62,7 +87,8 @@
         <p class="footer_p" id="footer_title">HOT HOT HOT</p>
         <p class="footer_p" id="footer_subTitle">IUT Gaston Berger - KTK G1</p>
     </footer>
-    
+
+    <script defer src="LocalStorageData.js"></script>
     <script defer src="script.js"></script>
 </body>
 </html>
