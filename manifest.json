@@ -10,11 +10,10 @@
     "icons": [
       {
         "src": "img/favThermo.png",
-        "type": "image/png"
-        "sizes": "64x64",
+        "type": "image/png",
+        "sizes": "64x64"
       }
     ],
   "author" : "Amoura Klélia/Taliesin Aubert",
   "license": "ISC"
-
 }
