@@ -72,40 +72,6 @@
                     <p id="minValue" class="minAndMax_value"></p>
                 </div>
                 <div id="graph">
-                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                    <script type="text/javascript">
-                        google.charts.load('current', {'packages':['corechart']});
-                        google.charts.setOnLoadCallback(drawChart);
-
-                        function drawChart() {
-                            var data = google.visualization.arrayToDataTable([
-                                ['2000',1000 ],
-                                ['2010',2000 ],
-                                ['2020',1500 ]
-                            ]);
-
-                            var options = {
-                                title: 'Temperaures',
-                                curveType: 'function',
-                                legend: { position: 'bottom' }
-                            };
-
-                            if (O_sensorDataHistorySelector.selectedIndex === 0) {
-                                for (let i = 0; i < A_dataHistory.length; i++) {
-                                    data.addRows([[A_dataHistory[i].getDateValue, parseFloat(A_dataHistory[i].getTempExt)]]);
-                                }
-                            }
-                            else {
-                                for (let i = 0; i < A_dataHistory.length; i++) {
-                                    data.addRows([[A_dataHistory[i].getDateValue, parseFloat(A_dataHistory[i].getTempInt)]]);
-                                }
-                            }
-
-                            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-                            chart.draw(data, options);
-                        }
-                    </script>
                     <div id="curve_chart"></div>
                 </div>
             </div>
@@ -121,6 +87,52 @@
 
     <script defer src="LocalStorageData.js"></script>
     <script defer src="script.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            let data = new google.visualization.DataTable();
+            data.addColumn('string', 'Heure');
+            data.addColumn('number', 'Temperature');
+            data.addRows(Math.ceil(A_dataHistory.length / 360));//Une donnée par heure car il y a un fetch toutes les 10 secondes
+            let options = {
+                title: 'Températures du jour',
+                'width':315,
+                'height':175,
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                vAxis: {
+                    title: 'Température en °C'
+                }
+            };
+
+            let i = 0;
+            let j = 0;
+            while(i < A_dataHistory.length) {
+                if (O_sensorDataHistorySelector.selectedIndex === 0) {
+                    let date = new Date();
+                    date.setTime(Date.parse(A_dataHistory[i].getDateValue));
+                    date = String(date.getHours() + ":" + date.getMinutes());
+                    data.setCell(j, 0, date);
+                    data.setCell(j, 1, A_dataHistory[i].getTempExt);
+                    i = i + 360;
+                    j++;
+                }
+                else {
+                    data.setCell(j, 0, A_dataHistory[i].getDateValue);
+                    data.setCell(j, 1, A_dataHistory[i].getTempInt);
+                    i = i + 360;
+                    j++;
+                }
+            }
+            console.log(data);
+            let chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
     <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js%22%3E"></script>
     <script defer src="Graph.js"></script>-->
 </body>

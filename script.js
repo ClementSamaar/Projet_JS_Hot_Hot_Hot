@@ -312,7 +312,7 @@ let A_init = {
 };
 
 /**
- * @function fetchData()
+ * @function fetchAndProcess()
  * @description Effectue une requète fetch vers le serveur hothothot, retourne la réponse sous forme de string et traite cette réponse
  */
 function fetchAndProcess() {
