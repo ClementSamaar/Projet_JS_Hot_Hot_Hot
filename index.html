@@ -79,9 +79,15 @@
 
                         function drawChart() {
                             var data = google.visualization.arrayToDataTable([
-                                ['2000',1000 ],
-                                ['2010',2000 ],
-                                ['2020',1500 ]
+                                ['Date', 'Temperature'],
+                                ['10h00',  15],
+                                ['11h00',  17],
+                                ['12h00',  21],
+                                ['13h00',  24],
+                                ['14h00',  24],
+                                ['15h00',  22],
+                                ['16h00',  20],
+                                ['17h00',  18]
                             ]);
 
                             var options = {
@@ -90,16 +96,20 @@
                                 legend: { position: 'bottom' }
                             };
 
-                            if (O_sensorDataHistorySelector.selectedIndex === 0) {
+                            /**
+                             * @description tentative de graph dynamique qui récupère les valeur de A_dataHistorySelector
+                             * if (O_sensorDataHistorySelector.selectedIndex === 0) {
                                 for (let i = 0; i < A_dataHistory.length; i++) {
                                     data.addRows([[A_dataHistory[i].getDateValue, parseFloat(A_dataHistory[i].getTempExt)]]);
                                 }
                             }
-                            else {
+                             else {
                                 for (let i = 0; i < A_dataHistory.length; i++) {
                                     data.addRows([[A_dataHistory[i].getDateValue, parseFloat(A_dataHistory[i].getTempInt)]]);
                                 }
                             }
+                             */
+
 
                             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
