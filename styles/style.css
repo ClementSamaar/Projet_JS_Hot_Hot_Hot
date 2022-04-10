@@ -10,11 +10,15 @@
 }
 
 html{
-    height: 99.7%;
+    width: 99.5%;
+    height: 100%;
 }
 
 body{
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 99.5%;
     height: 99%;
     border-left: solid #000000 5px;
     border-right: solid #000000 5px;
@@ -23,6 +27,7 @@ body{
 
 /* STYLE DU HEADER */
 .menu{
+    order: 1;
     display: grid;
     grid-template-columns: 2fr 1fr 2fr 2fr;
     text-align: center;
@@ -49,7 +54,8 @@ body{
 
 /** MAIN DISPLAY **/
 #mainDisplay_Container{
-    width: 47%;
+    order: 2;
+    width: 50%;
     height: 52%;
     border: solid #000000 5px;
     border-radius: 20px;
@@ -60,17 +66,19 @@ body{
 
 #mainDisplay_nav{
     width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 /** BUTTONS **/
 .tabListButton{
     transition: 500ms;
-    height: 2.5em;
+    height: 2.8em;
     border: none;
     margin-top: -0.1%;
     outline: 0;
     text-align: left;
-    font-size: 24px;
+    font-size: 20px;
     font-family: 'Cabin', sans-serif;
 }
 
@@ -84,7 +92,8 @@ body{
 
 /** WHEN DISPLAYING THE REAL-TIME DATA **/
 #realTimeData_button[aria-selected=true]{
-    width: 62.8%;
+    order: 1;
+    width: -webkit-fill-available;
     border-bottom: dashed #000000 5px;
     border-top-left-radius: 14px;
     color: #FFFFFF;
@@ -92,7 +101,9 @@ body{
 }
 
 #dataHistory_button[aria-selected=false]{
-    width: 36.6%;
+    order: 2;
+    width: fit-content;
+    padding-right: 15%;
     border-left: solid #000000 5px;
     border-bottom: solid #000000 5px;
     border-top-right-radius: 14px;
@@ -103,8 +114,10 @@ body{
 
 /** WHEN DISPLAYING THE DATA HISTORY **/
 #realTimeData_button[aria-selected=false]{
-    width: 39.02%;
+    order: 1;
+    width: fit-content;
     margin-left: -0.1%;
+    padding-right: 10%;
     border-right: solid #000000 5px;
     border-bottom: solid #000000 5px;
     border-top-left-radius: 14px;
@@ -114,7 +127,8 @@ body{
 }
 
 #dataHistory_button[aria-selected=true]{
-    width: 60.4%;
+    order: 2;
+    width: -webkit-fill-available;
     border-bottom: dashed #000000 5px;
     border-top-right-radius: 14px;
     color: #FFFFFF;
@@ -197,112 +211,60 @@ body{
 
 /* HISTORY SECTION */
 #minAndMax{
-    width: 20%;
-    margin-left: 2%;
-    margin-top: 3%;
+    width: 100%;
+    margin-left: 1%;
+}
+
+
+#minMaxExt{
     float: left;
+    width: 40%;
+    margin-left: 8%;
+}
+
+#minMaxInt{
+    float: right;
+    width: 40%;
+    margin-right: 8%;
 }
 
 .minAndMax_info{
-    font-size: 20px;
+    width: 100%;
+    font-size: 16px;
     font-family: 'Barlow', sans-serif;
-    margin: 10% 10%;
+    margin-top: 5%;
     float : left;
 }
 
 .minAndMax_value{
-    font-size: 25px;
+    font-size: 20px;
     font-family: 'Barlow', sans-serif;
-    margin: 5% 22.5%;
-}
-
-#graph{
-    width: 60%;
-    margin-left: 2%;
-    margin-top: 3%;
-    float : left;
 }
 
 hr{
     width: 80%;
-    margin-left: 10%;
+    margin: 0;
 }
+
+#graph{
+    width: 100%;
+    margin-top: 3%;
+    float : left;
+}
+
 /** ---HISTORY SECTION---*/
 /** ---INSIDE CONTAINER--- **/
-/*@media screen and (max-width:1250px) {
-    #mainDisplay_Container{
-        margin-left: 24%;
-        margin-top: 11%;
-    }
-    #realTimeData_button[aria-selected=true]{
-        width: 62.75%;
-    }
-
-    #dataHistory_button[aria-selected=false]{
-        width: 36.6%;
-    }
-
-    #realTimeData_button[aria-selected=false]{
-        width: 41%;
-    }
-
-    #dataHistory_button[aria-selected=true]{
-        width: 58%;
-    }
-
-    #mainDisplay_insideContainer{
-        width: 100%;
-        height: 78%;
-    }
-
-    #realTimeData_display{
-        width: 70%;
-        height: 75%;
-        margin: 5% 14%;
-        border: solid #000000 5px;
-        border-radius: 20px;
-    }
-
-    #realTimeData_header{
-        width: 100.5%;
-        height: 20%;
-        margin-top: -0.2%;
-        margin-left: -0.1%;
-        border-top-left-radius: 13px;
-        border-top-right-radius: 13px;
-    }
-
-    #realTimeData_header > select{
-        height: 48%;
-        margin-top: 2%;
-        font-size: 18px;
-    }
-
-    #realTimeData_section{
-        height: 34.03%;
-    }
-
-    #realTimeData{
-        margin-top: 7%;
-        font-size: 80px;
-    }
-
-    #relatedSuggestion{
-        font-size: 20px;
-    }
-}*/
 /** ---MAIN DISPLAY--- **/
 
 /* FOOTER */
 footer{
-    position: fixed;
-    top: 84%;
-    width: 99.5%;
+    order: 3;
+    width: 100%;
     height: 15%;
+    margin-top: 3%;
     text-align: center;
     border-top: solid #000000 5px;
     border-bottom: solid #000000 5px;
-    margin: -0.1%;
 }
 
 #footer_menu>a{
@@ -330,4 +292,90 @@ footer{
     font-size: 12px;
     margin-top: 0;
     padding-bottom: 1.5%;
+}
+
+@media (max-width: 400px){
+    #mainDisplay_Container{
+        height: 20%;
+    }
+
+    footer{
+        height: 8%;
+    }
+}
+
+@media (max-width: 900px){
+    #mainDisplay_Container{
+        height: 30%;
+    }
+
+    footer{
+        height: 12%;
+    }
+
+    .menu > button {
+        font-size: 12pt;
+    }
+
+    #title_button {
+        font-size: 20pt;
+    }
+
+    .tabListButton {
+        font-size: 16px;
+    }
+
+    .dataDisplay_header > select {
+        font-size: 12px;
+    }
+
+    #realTimeData {
+        font-size: 35px;
+    }
+
+    /* SUGGESTION */
+    #relatedSuggestion {
+        font-size: 15px;
+    }
+
+    .minAndMax_info {
+        font-size: 11px;
+        margin-top: 2%;
+        margin-bottom: 1%;
+    }
+
+    .minAndMax_value{
+        margin: 0;
+    }
+
+    #minMaxExt{
+        margin-left: 4%;
+    }
+
+    #minMaxInt{
+        margin-right: 4%;
+    }
+
+    .minAndMax_value {
+        font-size: 13px;
+    }
+
+    #footer_menu {
+        font-size: 13px;
+    }
+
+    #footer_title {
+        font-size: 10px;
+    }
+
+    #footer_subTitle {
+        font-size: 8px;
+    }
+}
+
+
+@media (max-width: 1300px){
+    #mainDisplay_Container{
+        width: 54%;
+    }
 }

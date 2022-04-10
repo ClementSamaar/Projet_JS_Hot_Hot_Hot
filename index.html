@@ -28,7 +28,7 @@
             <button id="realTimeData_button" class="tabListButton redBackground" name="mainData_button" role="tab"
                     aria-selected="true" aria-controls="realTimeData_display">DONNEES ACTUELLES</button>
 
-            <button id="dataHistory_button" class="tabListButton" name="dataHistory_button" role="tab"
+            <button id="dataHistory_button" class="tabListButton redBackground" name="dataHistory_button" role="tab"
                     aria-selected="false" aria-controls="dataHistory_display">HISTORIQUE</button>
         </div>
 
@@ -58,18 +58,28 @@
                     <label for="dataHistory_select"></label>
                     <select id="dataHistory_select">
                         <optgroup label="Température">
-                            <option label="Température extérieure">Température extérieure</option>
-                            <option label="Température intérieure">Température intérieure</option>
+                            <option label="Graph">Représentation graphique</option>
+                            <option label="Min_max">Maximales et minimales</option>
 
                         </optgroup>
                     </select>
                 </div>
                 <div id="minAndMax">
-                    <p class="minAndMax_info">Maximale</p>
-                    <p id="maxValue" class="minAndMax_value"></p>
-                    <hr>
-                    <p class="minAndMax_info">Minimale</p>
-                    <p id="minValue" class="minAndMax_value"></p>
+                    <div id="minMaxExt">
+                        <p class="minAndMax_info">Maximale extérieure</p>
+                        <p id="maxValueExt" class="minAndMax_value"></p>
+                        <hr>
+                        <p class="minAndMax_info">Minimale extérieure</p>
+                        <p id="minValueExt" class="minAndMax_value"></p>
+                    </div>
+                    <div id="minMaxInt">
+                        <p class="minAndMax_info">Maximale intérieur</p>
+                        <p id="maxValueInt" class="minAndMax_value"></p>
+                        <hr>
+                        <p class="minAndMax_info">Minimale intérieur</p>
+                        <p id="minValueInt" class="minAndMax_value"></p>
+                    </div>
+
                 </div>
                 <div id="graph">
                     <div id="curve_chart"></div>
@@ -85,8 +95,8 @@
         <p class="footer_p" id="footer_subTitle">IUT Gaston Berger - KTK G1</p>
     </footer>
 
-    <script defer src="LocalStorageData.js"></script>
-    <script defer src="script.js"></script>
+    <script type="text/javascript" src="LocalStorageData.js"></script>
+    <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
@@ -95,43 +105,41 @@
         function drawChart() {
             let data = new google.visualization.DataTable();
             data.addColumn('string', 'Heure');
-            data.addColumn('number', 'Temperature');
+            data.addColumn('number', 'T_Ext');
+            data.addColumn('number', 'T_Int');
             data.addRows(Math.ceil(A_dataHistory.length / 360));//Une donnée par heure car il y a un fetch toutes les 10 secondes
             let options = {
                 title: 'Températures du jour',
-                'width':315,
-                'height':175,
-                curveType: 'function',
-                legend: { position: 'bottom' },
-                vAxis: {
-                    title: 'Température en °C'
-                }
+                width:515,
+                width_unit: '%',
+                'height':150,
+                curveType: 'function'
             };
 
             let i = 0;
             let j = 0;
             while(i < A_dataHistory.length) {
-                if (O_sensorDataHistorySelector.selectedIndex === 0) {
-                    let date = new Date();
-                    date.setTime(Date.parse(A_dataHistory[i].getDateValue));
-                    date = String(date.getHours() + ":" + date.getMinutes());
-                    data.setCell(j, 0, date);
-                    data.setCell(j, 1, A_dataHistory[i].getTempExt);
-                    i = i + 360;
-                    j++;
-                }
-                else {
-                    data.setCell(j, 0, A_dataHistory[i].getDateValue);
-                    data.setCell(j, 1, A_dataHistory[i].getTempInt);
-                    i = i + 360;
-                    j++;
-                }
+                let date = new Date();
+                let minutes
+                date.setTime(Date.parse(A_dataHistory[i].getDateValue));
+                if (date.getMinutes() < 10)
+                    minutes = "0" + date.getMinutes();
+                else
+                    minutes = date.getMinutes();
+
+                date = String(date.getHours() + ":" + minutes);
+                data.setCell(j, 0, date);
+                data.setCell(j, 1, A_dataHistory[i].getTempExt);
+                data.setCell(j, 2, A_dataHistory[i].getTempInt);
+                i = i + 360;
+                j++;
             }
             console.log(data);
             let chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
             chart.draw(data, options);
         }
+
     </script>
     <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js%22%3E"></script>
     <script defer src="Graph.js"></script>-->

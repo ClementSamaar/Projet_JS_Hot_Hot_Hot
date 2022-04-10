@@ -42,8 +42,8 @@ const O_sensorRealTimeSelector = document.querySelector("#realTimeData_select");
 const O_sensorDataHistorySelector = document.querySelector("#dataHistory_select");
 const O_dataDisplay = document.querySelector("#realTimeData");
 const O_suggestionDisplay = document.querySelector("#relatedSuggestion");
-const O_maxValue = document.querySelector("#maxValue");
-const O_minValue = document.querySelector("#minValue");
+const O_graph = document.getElementById("graph");
+const O_minMax = document.getElementById("minAndMax");
 const O_footer = document.querySelector("footer");
 let F_dataDisplayed;
 let S_sockMsg;
@@ -197,16 +197,24 @@ function displayRealTimeValues() {
  */
 function displayHistoryValues() {
     sortDataHistoryArray();
+    let A_minMaxExt = O_minMax.firstChild.nextSibling;
+    let A_minMaxInt = A_minMaxExt.nextElementSibling;
+    let A_minMaxExtChildren = A_minMaxExt.childNodes;
+    let A_minMaxIntChildren = A_minMaxInt.childNodes;
+
+    A_minMaxExtChildren[3].textContent = S_maxExt;
+    A_minMaxExtChildren[9].textContent = S_minExt;
+    A_minMaxIntChildren[3].textContent = S_maxInt;
+    A_minMaxIntChildren[9].textContent = S_minInt;
+
     if (O_sensorDataHistorySelector.selectedIndex === 0) {
-        O_maxValue.innerHTML = S_maxExt + '°C';
-        O_minValue.innerHTML = S_minExt + '°C';
+        O_minMax.setAttribute("class", "is-hidden");
+        O_graph.setAttribute("class", "");
     } else {
-        O_maxValue.innerHTML = S_maxInt + '°C';
-        O_minValue.innerHTML = S_minInt + '°C';
+        O_minMax.setAttribute("class", "");
+        O_graph.setAttribute("class", "is-hidden");
     }
 }
-
-
 
 /**
  * @function changeDisplayBackground()
@@ -251,7 +259,6 @@ function changeDisplayBackground(){
  * @function processFetchData()
  * @description Traite la réponse du fetch
  */
-
 function processFetchData() {
     rawMsgToNecessaryString(S_fetchResponse);
     storeData(parseFloat(S_tempInt), parseFloat(S_tempExt));
@@ -315,6 +322,7 @@ let A_init = {
  * @function fetchAndProcess()
  * @description Effectue une requète fetch vers le serveur hothothot, retourne la réponse sous forme de string et traite cette réponse
  */
+
 function fetchAndProcess() {
     fetch('https://hothothot.dog/api/capteurs', A_init)
         .then(response => response.json())
