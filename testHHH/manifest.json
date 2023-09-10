@@ -1,0 +1,19 @@
+{
+  "name": "HotHotHot by KTK",
+  "short_name": "HotHotHot",
+  "start_url": "clementsamaar.github.io/Projet_JS_Hot_Hot_Hot/index.html",
+  "main" : "app.js",
+  "display": "fullscreen",
+  "background_color" : "white",
+  "theme_color" : "#D06161",
+  "description": "Your favourite domotic application to check your house's data",
+    "icons": [
+      {
+        "src": "img/favThermo.png",
+        "type": "image/png",
+        "sizes": "64x64"
+      }
+    ],
+  "author" : "Amoura Klélia/Taliesin Aubert",
+  "license": "ISC"
+}
